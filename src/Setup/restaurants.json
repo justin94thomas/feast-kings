@@ -1,0 +1,161 @@
+[
+    {
+        "id": "RES-1",
+        "name": "Pizza Palace",
+        "image": "https://content.jdmagicbox.com/comp/def_content/pizza_outlets/default-pizza-outlets-13.jpg",
+        "rating": 4.5,
+        "deliveryTime": "30 mins",
+        "cuisine": "Italian",
+        "location": "123 Main St",
+        "display": false,
+        "distance": 2,
+        "menu": [
+            {
+                "id": "RES-1-M-1",
+                "name": "Margherita",
+                "category": "Pizzas",
+                "price": 200,
+                "rating": 4.2,
+                "image": "https://example.com/margherita.jpg",
+                "bestseller": true,
+                "people": 21,
+                "veg": true,
+                "description": "",
+                "quantity": 0
+            },
+            {
+                "id": "RES-1-M-2",
+                "name": "Ham and Cheese",
+                "category": "Pizzas",
+                "price": 250,
+                "rating": 4.5,
+                "image": "https://example.com/margherita.jpg",
+                "bestseller": true,
+                "people": 50,
+                "veg": false,
+                "description": "",
+                "quantity": 0
+            },
+            {
+                "id": "RES-1-M-3",
+                "name": "Fully Loaded",
+                "category": "Pizzas",
+                "price": 450,
+                "rating": 4.2,
+                "image": "https://example.com/margherita.jpg",
+                "bestseller": false,
+                "people": 21,
+                "veg": true,
+                "description": "Contains cheese, mushrooms, bell-peppers, onions, olives, corn and tomato puree.",
+                "quantity": 0
+            }
+        ],
+        "offers": "10% off on all orders"
+    },
+    {
+        "id": "RES-2",
+        "name": "Pizza Palace",
+        "image": "https://content.jdmagicbox.com/comp/def_content/pizza_outlets/default-pizza-outlets-13.jpg",
+        "rating": 4.5,
+        "deliveryTime": "30 mins",
+        "cuisine": "Italian",
+        "location": "123 Main St",
+        "display": false,
+        "distance": 2,
+        "menu": [
+            {
+                "id": "RES-2-M-1",
+                "name": "Margherita",
+                "category": "Pizzas",
+                "price": 200,
+                "rating": 4.2,
+                "image": "https://example.com/margherita.jpg",
+                "bestseller": true,
+                "people": 21,
+                "veg": true,
+                "description": "",
+                "quantity": 0
+            },
+            {
+                "id": "RES-2-M-2",
+                "name": "Ham and Cheese",
+                "category": "Pizzas",
+                "price": 250,
+                "rating": 4.5,
+                "image": "https://example.com/margherita.jpg",
+                "bestseller": true,
+                "people": 50,
+                "veg": false,
+                "description": "",
+                "quantity": 0
+            },
+            {
+                "id": "RES-2-M-3",
+                "name": "Fully Loaded",
+                "category": "Pizzas",
+                "price": 450,
+                "rating": 4.2,
+                "image": "https://example.com/margherita.jpg",
+                "bestseller": false,
+                "people": 21,
+                "veg": true,
+                "description": "Contains cheese, mushrooms, bell-peppers, onions, olives, corn and tomato puree.",
+                "quantity": 0
+            }
+        ],
+        "offers": "10% off on all orders"
+    },
+    {
+        "id": "RES-3",
+        "name": "Pizza Palace",
+        "image": "https://content.jdmagicbox.com/comp/def_content/pizza_outlets/default-pizza-outlets-13.jpg",
+        "rating": 4.5,
+        "deliveryTime": "30 mins",
+        "cuisine": "Italian",
+        "location": "123 Main St",
+        "display": false,
+        "distance": 2,
+        "menu": [
+            {
+                "id": "RES-3-M-1",
+                "name": "Margherita",
+                "category": "Pizzas",
+                "price": 200,
+                "rating": 4.2,
+                "image": "https://example.com/margherita.jpg",
+                "bestseller": true,
+                "people": 21,
+                "veg": true,
+                "description": "",
+                "quantity": 0
+            },
+            {
+                "id": "RES-3-M-2",
+                "name": "Ham and Cheese",
+                "category": "Pizzas",
+                "price": 250,
+                "rating": 4.5,
+                "image": "https://example.com/margherita.jpg",
+                "bestseller": true,
+                "people": 50,
+                "veg": false,
+                "description": "",
+                "quantity": 0
+            },
+            {
+                "id": "RES-3-M-3",
+                "name": "Fully Loaded",
+                "category": "Pizzas",
+                "price": 450,
+                "rating": 4.2,
+                "image": "https://example.com/margherita.jpg",
+                "bestseller": false,
+                "people": 21,
+                "veg": true,
+                "description": "Contains cheese, mushrooms, bell-peppers, onions, olives, corn and tomato puree.",
+                "quantity": 0
+            }
+        ],
+        "offers": "10% off on all orders"
+    }
+]

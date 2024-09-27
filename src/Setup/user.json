@@ -1,0 +1,33 @@
+[
+    {
+        "id": 1,
+        "name": "Justin Thomas",
+        "image": "",
+        "phone": "91-9872658895",
+        "current": "home",
+        "address": [
+            {
+                "id": 1,
+                "type": "home",
+                "name": "Kerala Home",
+                "addressLine1": "Thomas, Kalapurackal House, Uppuzhy",
+                "addressLine2": "Inchakundu P.O., Mupliyam, Pudukkad",
+                "city": "Thrissur",
+                "state": "Kerala",
+                "country": "India",
+                "pincode": 680312
+            },
+            {
+                "id": 2,
+                "type": "other",
+                "name": "Delhi Home",
+                "addressLine1": "163-C, Pocket-C",
+                "addressLine2": "Mayur Vihar Phase 2",
+                "city": "New Delhi",
+                "state": "New Delhi",
+                "country": "India",
+                "pincode": 110091
+            }
+        ]
+    }
+]
