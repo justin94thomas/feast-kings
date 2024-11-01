@@ -22,6 +22,7 @@ export default function TrackOrder() {
     const [userLocation, setUserLocation] = useState(null);
     const [routeCoordinates, setRouteCoordinates] = useState([]);
     const [orderDelay, setOrderDelay] = useState(false);
+    const orderDetails = useSelector(state => state.restaurant.orderDetails);
 
     useEffect(() => {
         (async function fetchData() {
@@ -63,8 +64,10 @@ export default function TrackOrder() {
                 </TouchableOpacity>
                 <View style={styles.orderBox}>
                     <View>
-                        <Text style={styles.orderId}>ORDER #15691868240</Text>
-                        <Text style={styles.orderDetails}>8:21 PM | 2 items, ₹241</Text>
+                        <Text style={styles.orderId}>ORDER #{orderDetails && orderDetails[0].orderId}</Text>
+                        <Text style={styles.orderDetails}>{orderDetails && `8:21 PM | ${orderDetails[0].items.length} ${orderDetails[0].items.length > 1 ? `items` : `item`}, ₹${orderDetails[0].totalAmount}`}
+
+                        </Text>
                     </View>
                     <Text style={styles.helpText}>HELP</Text>
                 </View>

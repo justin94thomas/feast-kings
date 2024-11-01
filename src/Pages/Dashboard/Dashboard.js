@@ -1,19 +1,20 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, Image, ScrollView, TextInput, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, Image, ScrollView, TextInput, TouchableOpacity, Dimensions } from 'react-native';
 import { MaterialIcons, FontAwesome, Feather } from '@expo/vector-icons';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchRestaurants } from '../../Store/actions/restaurantAction';
+import { fetchRestaurants, viewTrack } from '../../Store/actions/restaurantAction';
 import { fetchUser } from '../../Store/actions/userAction';
 import RestaurantList from './Lists';
 
-
-
+const { width } = Dimensions.get('window');
 export default function Dashboard() {
     const dispatch = useDispatch();
     const userData = useSelector(state => state.user)
-    const restaurants = useSelector(state => state.restaurant.restaurants)
+    const restaurants = useSelector(state => state.restaurant.restaurants);
+    const orderDetails = useSelector(state => state.restaurant.orderDetails);
     const [user, setUser] = useState({});
     const [delivery, setDelivery] = useState({});
+    const [orderData, setOrderData] = useState([]);
 
     useEffect(() => {
         dispatch(fetchRestaurants());
@@ -27,68 +28,79 @@ export default function Dashboard() {
             setUser(currentUser);
             setDelivery(currentAddress?.[0]);
         }
-    }, [userData]);
+        if (Array.isArray(orderDetails)) {
+            setOrderData(orderDetails)
+        }
+    }, [userData, orderDetails]);
 
     return (
-        <ScrollView>
-            <View style={[styles.container, { backgroundColor: 'white' }]}>
-                <View style={styles.header}>
-                    <View style={styles.locationWrapper}>
-                        <MaterialIcons name="location-on" size={24} color="orange" />
-                        <View style={styles.locationDiv}>
-                            <Text style={styles.locationText}>{delivery?.name}</Text>
-                            <Text style={styles.addressText} numberOfLines={1}>{delivery?.addressLine1}, {delivery?.addressLine2}</Text>
+        <View>
+            <ScrollView>
+                <View style={[styles.container, { backgroundColor: 'white' }]}>
+                    <View style={styles.header}>
+                        <View style={styles.locationWrapper}>
+                            <MaterialIcons name="location-on" size={24} color="orange" />
+                            <View style={styles.locationDiv}>
+                                <Text style={styles.locationText}>{delivery?.name}</Text>
+                                <Text style={styles.addressText} numberOfLines={1}>{delivery?.addressLine1}, {delivery?.addressLine2}</Text>
+                            </View>
                         </View>
+                        <TouchableOpacity>
+                            <FontAwesome name="user-circle-o" size={24} color="black" />
+                        </TouchableOpacity>
                     </View>
-                    <TouchableOpacity>
-                        <FontAwesome name="user-circle-o" size={24} color="black" />
+                    {/* Search Bar */}
+                    <View style={styles.searchBar}>
+                        <TextInput
+                            placeholder="Search for 'Onam Special'"
+                            style={styles.searchInput}
+                        />
+                        <TouchableOpacity>
+                            <Feather name="mic" size={24} color="orange" />
+                        </TouchableOpacity>
+                    </View>
+                </View>
+                {/* Promo Banner */}
+                <View style={styles.banner}>
+                    <Text style={styles.bannerTitle}>It’s snack time</Text>
+                    <Text style={styles.bannerSubtitle}>Get delicious munchies & enjoy!</Text>
+                    <TouchableOpacity style={styles.orderNowButton}>
+                        <Text style={styles.orderNowText}>ORDER NOW</Text>
                     </TouchableOpacity>
                 </View>
-                {/* Search Bar */}
-                <View style={styles.searchBar}>
-                    <TextInput
-                        placeholder="Search for 'Onam Special'"
-                        style={styles.searchInput}
-                    />
-                    <TouchableOpacity>
-                        <Feather name="mic" size={24} color="orange" />
-                    </TouchableOpacity>
-                </View>
-            </View>
-            {/* Promo Banner */}
-            <View style={styles.banner}>
-                <Text style={styles.bannerTitle}>It’s snack time</Text>
-                <Text style={styles.bannerSubtitle}>Get delicious munchies & enjoy!</Text>
-                <TouchableOpacity style={styles.orderNowButton}>
-                    <Text style={styles.orderNowText}>ORDER NOW</Text>
-                </TouchableOpacity>
-            </View>
-            {/* Filters */}
-            <ScrollView
-                horizontal={true}
-                showsHorizontalScrollIndicator={false}
-                contentContainerStyle={{ paddingHorizontal: 10 }}
-            >
-                <View style={styles.filters}>
-                    <TouchableOpacity style={styles.filterButton}>
-                        <Text>Pure Veg</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.filterButton}>
-                        <Text>Less than Rs. 300</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.filterButton}>
-                        <Text>Less than 5 KM</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.filterButton}>
-                        <Text>Ratings</Text>
-                    </TouchableOpacity>
-                </View>
+                {/* Filters */}
+                <ScrollView
+                    horizontal={true}
+                    showsHorizontalScrollIndicator={false}
+                    contentContainerStyle={{ paddingHorizontal: 10 }}
+                >
+                    <View style={styles.filters}>
+                        <TouchableOpacity style={styles.filterButton}>
+                            <Text>Pure Veg</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.filterButton}>
+                            <Text>Less than Rs. 300</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.filterButton}>
+                            <Text>Less than 5 KM</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.filterButton}>
+                            <Text>Ratings</Text>
+                        </TouchableOpacity>
+                    </View>
+                </ScrollView>
+                {/* Restaurant Listings */}
+                <Text style={styles.sectionTitle}>Restaurants to explore</Text>
+                {/* Placeholder for the restaurant listings */}
+                <RestaurantList data={restaurants} />
             </ScrollView>
-            {/* Restaurant Listings */}
-            <Text style={styles.sectionTitle}>Restaurants to explore</Text>
-            {/* Placeholder for the restaurant listings */}
-            <RestaurantList data={restaurants} />
-        </ScrollView>
+            {orderData.length > 0 &&
+                <View style={styles.statusContainer}>
+                    <TouchableOpacity style={styles.viewCartMain} onPress={() => dispatch(viewTrack())}>
+                        <Text style={styles.cartText}>{`View Order: ${orderData[0].orderId}`}</Text>
+                    </TouchableOpacity>
+                </View>}
+        </View>
     );
 };
 
@@ -187,5 +199,35 @@ const styles = StyleSheet.create({
         marginLeft: 8,
         fontWeight: 'bold',
         fontSize: 18,
+    },
+    statusContainer: {
+        position: 'absolute',
+        bottom: 20,
+        width: width,
+        backgroundColor: 'white',
+        paddingVertical: 20,
+        paddingHorizontal: 15,
+        borderTopLeftRadius: 20,
+        borderTopRightRadius: 20,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: -2 },
+        shadowOpacity: 0.2,
+        shadowRadius: 5,
+    },
+    viewCartMain: {
+        width: '92%',
+        height: 50,
+        borderRadius: 8,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        alignSelf: 'center',
+        paddingHorizontal: 16,
+        backgroundColor: 'green',
+    },
+    cartText: {
+        fontWeight: 'bold',
+        fontSize: 14,
+        color: '#fff',
     },
 });

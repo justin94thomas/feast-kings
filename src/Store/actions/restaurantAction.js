@@ -6,7 +6,7 @@ export const CART_ADD_ITEM = 'CART_ADD_ITEM';
 export const CART_INCREMENT_ITEM = 'CART_INCREMENT_ITEM';
 export const CART_DECREMENT_ITEM = 'CART_DECREMENT_ITEM';
 export const CART_REMOVE_ITEM = 'CART_REMOVE_ITEM';
-export const GO_TO_TRACK = 'GO_TO_TRACK';
+export const TRACK_ORDER = 'TRACK_ORDER';
 
 export const fetchRestaurants = () => {
     return async (dispatch) => {
@@ -17,7 +17,6 @@ export const fetchRestaurants = () => {
         });
     };
 };
-
 export const showHide = (selected) => {
     return async (dispatch, getState) => {
         try {
@@ -43,7 +42,6 @@ export const showHide = (selected) => {
         }
     };
 };
-
 export const selectResaurant = (selected) => {
     return async (dispatch) => {
         dispatch({
@@ -52,7 +50,6 @@ export const selectResaurant = (selected) => {
         });
     };
 };
-
 export const goToList = () => {
     return async (dispatch) => {
         dispatch({
@@ -122,11 +119,17 @@ export const addToCart = (selected, item, actionType) => {
         }
     };
 };
-export const moveToTrack = () => {
+export const moveToTrack = (total, orderId) => {
     return async (dispatch) => {
-        dispatch({
-            type: GO_TO_LIST,
-            payload: 'Track'
-        });
+        dispatch({ type: GO_TO_LIST, payload: 'Track' });
+        dispatch({ type: TRACK_ORDER, payload: { total, orderId } })
     };
 }
+
+export const viewTrack = () => {
+    return async (dispatch) => {
+        dispatch({ type: GO_TO_LIST, payload: 'Track' });
+    };
+}
+
+

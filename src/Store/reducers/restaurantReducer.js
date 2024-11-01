@@ -1,12 +1,23 @@
-import { FETCH_RESTAURANTS, SELECTED_RESTAURANT, GO_TO_LIST, CART_ADD_ITEM, CART_INCREMENT_ITEM, CART_DECREMENT_ITEM, CART_REMOVE_ITEM } from '../actions/restaurantAction';
+import {
+    FETCH_RESTAURANTS,
+    SELECTED_RESTAURANT,
+    GO_TO_LIST,
+    CART_ADD_ITEM,
+    CART_INCREMENT_ITEM,
+    CART_DECREMENT_ITEM,
+    CART_REMOVE_ITEM,
+    TRACK_ORDER
+} from '../actions/restaurantAction';
 
 const initialState = {
     restaurants: [],
     selectedRestaurant: null,
     cart: [],
-    view: "Dashboard"
+    view: "Dashboard",
+    orderDetails: []
 
 };
+
 
 export default function (state = initialState, action) {
     switch (action.type) {
@@ -31,6 +42,17 @@ export default function (state = initialState, action) {
             };
         case CART_REMOVE_ITEM:
             return { ...state, cart: state.cart.filter(item => item.id !== action.payload) };
+        case TRACK_ORDER:
+            const newOrder = {
+                orderId: action.payload.orderId,
+                items: [...state.cart],
+                totalAmount: action.payload.total,
+            };
+            return {
+                ...state,
+                orderDetails: [...state.orderDetails, newOrder],
+                cart: [],
+            };
         default:
             return state;
     }

@@ -18,7 +18,6 @@ export default function Checkout() {
         { id: 4, label: 'Leave with Security', active: false, icon: 'person' }
     ]
 
-    console.log("cart", cart)
     useEffect(() => {
         if (Array.isArray(userData?.user)) {
             let currentUser = userData.user[0];
@@ -31,9 +30,15 @@ export default function Checkout() {
         dispatch(addToCart(restaurant, item, actionType));
     };
 
-    const handlePayment = (final) => {
-        alert(`Payment of ₹ ${final} triggered!`);
-        dispatch(moveToTrack())
+    const generateOrderId = () => {
+        const randomDigits = Math.floor(10000 + Math.random() * 90000); // Generates a random number between 10000 and 99999
+        return `ORD${randomDigits}`; // Concatenate "ORD" with the random digits
+    };
+
+    const handlePayment = (total) => {
+        alert(`Payment of ₹ ${total} triggered!`);
+        let orderID = generateOrderId();
+        dispatch(moveToTrack(total, orderID))
 
     };
 
