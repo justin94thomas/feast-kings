@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, Animated, PanResponder, Dimensions, TouchableOp
 
 const { width } = Dimensions.get('window');
 
-const SlideToPay = ({ finalAmount }) => {
+const SlideToPay = ({ finalAmount, handlePayment }) => {
     const [slideAnim] = useState(new Animated.Value(0));
     const [paymentTriggered, setPaymentTriggered] = useState(false);
     const slideLimit = width * 0.6;
@@ -17,7 +17,7 @@ const SlideToPay = ({ finalAmount }) => {
         onPanResponderRelease: (e, gestureState) => {
             if (gestureState.dx > slideLimit) {
                 setPaymentTriggered(true);
-                handlePayment();
+                handlePayment(finalAmount);
                 Animated.spring(slideAnim, {
                     toValue: slideLimit,
                     useNativeDriver: false
@@ -31,9 +31,6 @@ const SlideToPay = ({ finalAmount }) => {
         },
     });
 
-    const handlePayment = () => {
-        alert(`Payment of ₹ ${finalAmount} triggered!`);
-    };
 
     return (
         <View style={styles.container}>

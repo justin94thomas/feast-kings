@@ -6,6 +6,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import Dashboard from './Dashboard';
 import Preview from './Preview';
 import Checkout from './Checkout';
+import TrackOrder from './TrackOrder';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -56,6 +57,8 @@ export default function HomeScreen() {
                 <Stack.Screen name="Preview" component={Preview} />
             ) : currentScreen === 'Checkout' ? (
                 <Stack.Screen name="Checkout" component={Checkout} />
+            ) : currentScreen === 'Track' ? (
+                <Stack.Screen name="Track" component={TrackOrder} />
             ) : (
                 <Stack.Screen name="MainTabs" component={MainTabs} />
             )}

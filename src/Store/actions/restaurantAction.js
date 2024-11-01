@@ -6,7 +6,7 @@ export const CART_ADD_ITEM = 'CART_ADD_ITEM';
 export const CART_INCREMENT_ITEM = 'CART_INCREMENT_ITEM';
 export const CART_DECREMENT_ITEM = 'CART_DECREMENT_ITEM';
 export const CART_REMOVE_ITEM = 'CART_REMOVE_ITEM';
-
+export const GO_TO_TRACK = 'GO_TO_TRACK';
 
 export const fetchRestaurants = () => {
     return async (dispatch) => {
@@ -77,8 +77,6 @@ export const goToCheckout = () => {
         });
     };
 };
-
-
 export const addToCart = (selected, item, actionType) => {
     return async (dispatch, getState) => {
         try {
@@ -124,3 +122,11 @@ export const addToCart = (selected, item, actionType) => {
         }
     };
 };
+export const moveToTrack = () => {
+    return async (dispatch) => {
+        dispatch({
+            type: GO_TO_LIST,
+            payload: 'Track'
+        });
+    };
+}

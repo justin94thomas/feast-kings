@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, Image, ScrollView, Switch, TextInput, TouchableOpacity, ScrollViewComponent } from 'react-native';
 import { MaterialIcons, Feather } from '@expo/vector-icons';
 import { useSelector, useDispatch } from 'react-redux';
-import { goToMenu, addToCart } from '../../Store/actions/restaurantAction';
+import { goToMenu, addToCart, moveToTrack } from '../../Store/actions/restaurantAction';
 import SlideToPay from '../../Components/SlideToPay';
 export default function Checkout() {
     const dispatch = useDispatch();
@@ -30,6 +30,13 @@ export default function Checkout() {
     const handleAddToCart = (restaurant, item, actionType) => {
         dispatch(addToCart(restaurant, item, actionType));
     };
+
+    const handlePayment = (final) => {
+        alert(`Payment of ₹ ${final} triggered!`);
+        dispatch(moveToTrack())
+
+    };
+
     const totalAmount = Array.isArray(cart) ? cart.reduce((total, item) => total + (item.price * item.quantity), 0) : 0;
     return (
         <View style={styles.container}>
@@ -61,7 +68,7 @@ export default function Checkout() {
                 {/* Cart Details */}
                 <View style={styles.content3}>
                     {cart && cart.map(menuItem => {
-                        return <View style={styles.flexContent}>
+                        return <View style={styles.flexContent} key={menuItem.id}>
                             <View style={styles.flexContent}>
                                 <MaterialIcons name={menuItem.veg ? "spa" : "pets"} size={20} color={menuItem.veg ? 'green' : "#FF6969"} />
                                 <Text>{menuItem.name}</Text>
@@ -92,8 +99,8 @@ export default function Checkout() {
                         showsHorizontalScrollIndicator={false}
                         contentContainerStyle={{ paddingHorizontal: 10 }}>
                         {instructions && instructions.map(item => {
-                            return <TouchableOpacity>
-                                <View key={item.id} style={styles.box}>
+                            return <TouchableOpacity key={item.id}>
+                                <View style={styles.box}>
                                     <MaterialIcons name={item.icon} size={26} color="black" marginBottom={8} />
                                     <Text style={{ textAlign: 'center' }}>{item.label}</Text>
                                 </View>
@@ -129,7 +136,7 @@ export default function Checkout() {
                         <Text style={styles.changeText}>Change</Text>
                     </TouchableOpacity>
                 </View>
-                <SlideToPay finalAmount={totalAmount + 70 + 5} />
+                <SlideToPay finalAmount={totalAmount + 70 + 5} handlePayment={handlePayment} />
             </View>
         </View>
     );
