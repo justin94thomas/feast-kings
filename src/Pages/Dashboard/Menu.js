@@ -6,7 +6,7 @@ import { addToCart } from '../../Store/actions/restaurantAction';
 
 export default function Menu({ selected }) {
     const dispatch = useDispatch();
-    const restaurants = useSelector(state => state.restaurant.restaurants);
+    // const restaurants = useSelector(state => state.restaurant.restaurants);
     const cart = useSelector(state => state.restaurant.cart);
 
     const handleAddToCart = (restaurant, item, actionType) => {

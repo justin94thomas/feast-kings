@@ -10,9 +10,8 @@ import RestaurantList from './Lists';
 
 export default function Dashboard() {
     const dispatch = useDispatch();
-    const state = useSelector(state => state)
-    const userData = state.user;
-    const restaurants = state.restaurant.restaurants;
+    const userData = useSelector(state => state.user)
+    const restaurants = useSelector(state => state.restaurant.restaurants)
     const [user, setUser] = useState({});
     const [delivery, setDelivery] = useState({});
 

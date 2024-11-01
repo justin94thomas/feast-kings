@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, Image, FlatList, TouchableOpacity } from 'react-native';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Card, Badge } from 'react-native-paper';
 import { fetchRestaurants, selectResaurant, showHide } from '../../Store/actions/restaurantAction';
 import { MaterialIcons, Feather } from '@expo/vector-icons';

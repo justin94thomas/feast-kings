@@ -7,9 +7,8 @@ import Menu from './Menu';
 
 export default function Preview() {
     const dispatch = useDispatch();
-    const state = useSelector(state => state)
-    const selected = state.restaurant.selectedRestaurant;
-    const cart = state.restaurant.cart;
+    const selected = useSelector((state) => state.restaurant.selectedRestaurant)
+    const cart = useSelector((state) => state.restaurant.cart)
     const [veg, setVeg] = React.useState(false);
     const [nonVeg, setNonVeg] = React.useState(false);
 

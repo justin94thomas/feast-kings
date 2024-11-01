@@ -10,8 +10,7 @@ import Checkout from './Checkout';
 const Tab = createBottomTabNavigator();
 
 export default function HomeScreen() {
-    const state = useSelector(state => state)
-    const currentScreen = state.restaurant.view;
+    const currentScreen = useSelector(state => state.restaurant.view)
 
     if (currentScreen === 'Dashboard') {
         return (

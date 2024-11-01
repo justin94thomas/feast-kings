@@ -6,10 +6,9 @@ import { goToMenu, addToCart } from '../../Store/actions/restaurantAction';
 import SlideToPay from '../../Components/SlideToPay';
 export default function Checkout() {
     const dispatch = useDispatch();
-    const state = useSelector(state => state)
-    const userData = state.user;
-    const selected = state.restaurant.selectedRestaurant;
-    const cart = state.restaurant.cart;
+    const userData = useSelector((state) => state.user)
+    const selected = useSelector((state) => state.restaurant.selectedRestaurant)
+    const cart = useSelector((state) => state.restaurant.cart)
     const [user, setUser] = useState({});
     const [delivery, setDelivery] = useState({});
     const instructions = [
