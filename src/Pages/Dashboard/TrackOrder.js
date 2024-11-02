@@ -18,12 +18,14 @@ const restaurantLocation = {
     latitudeDelta: 2,
     longitudeDelta: 2,
 };
+
 export default function TrackOrder() {
     const dispatch = useDispatch();
     const [userLocation, setUserLocation] = useState(null);
     const [routeCoordinates, setRouteCoordinates] = useState([]);
     const [orderDelay, setOrderDelay] = useState(false);
     const orderDetails = useSelector(state => state.restaurant.orderDetails);
+    const [routeMap, setRouteMap] = useState(null);
     useEffect(() => {
         (async function fetchData() {
             try {
@@ -44,6 +46,33 @@ export default function TrackOrder() {
                 //     longitude: point[1],
                 // }));
                 // setRouteCoordinates(routeCoords);
+                const routeMap = [
+                    { latitude: 10.400873, longitude: 76.341851 },
+                    { latitude: 10.400892, longitude: 76.341970 },
+                    { latitude: 10.400538, longitude: 76.342007 },
+                    { latitude: 10.400443, longitude: 76.342335 },
+                    { latitude: 10.400396, longitude: 76.342579 },
+                    { latitude: 10.400332, longitude: 76.343411 },
+                    { latitude: 10.400151, longitude: 76.346138 },
+                    { latitude: 10.400314, longitude: 76.346991 },
+                    { latitude: 10.400541, longitude: 76.347339 },
+                    { latitude: 10.400417, longitude: 76.348267 },
+                    { latitude: 10.400179, longitude: 76.348884 },
+                    { latitude: 10.400286, longitude: 76.349707 },
+                    { latitude: 10.400847, longitude: 76.350092 },
+                    { latitude: 10.401136, longitude: 76.351148 },
+                    { latitude: 10.401015, longitude: 76.351690 },
+                    { latitude: 10.400791, longitude: 76.353552 },
+                    { latitude: 10.400944, longitude: 76.353863 },
+                    { latitude: 10.401272, longitude: 76.354438 },
+                    { latitude: 10.401372, longitude: 76.355398 },
+                    { latitude: 10.402635, longitude: 76.355784 },
+                    { latitude: 10.402651, longitude: 76.356015 },
+                    { latitude: 10.402316, longitude: 76.357367 },
+                    { latitude: 10.402205, longitude: 76.358747 },
+                    { latitude: currentLatitude, longitude: currentLongitude },
+                ]
+                setRouteMap(routeMap)
                 setUserLocation({
                     latitude: currentLatitude,
                     longitude: currentLongitude,
@@ -100,10 +129,7 @@ export default function TrackOrder() {
                         </Marker>
                         {/* Optional Polyline for route */}
                         <Polyline
-                            coordinates={[
-                                { latitude: 10.400873, longitude: 76.341851 },
-                                { latitude: userLocation.latitude, longitude: userLocation.longitude },
-                            ]}
+                            coordinates={routeMap}
                             strokeColor="blue"
                             strokeWidth={3}
                         />
