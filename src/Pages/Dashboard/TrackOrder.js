@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import MapView, { Marker, Polyline, PROVIDER_GOOGLE } from 'react-native-maps';
-import { View, Text, StyleSheet, Dimensions, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, Image, Dimensions, TouchableOpacity, ScrollView } from 'react-native';
 import { MaterialIcons, Feather } from '@expo/vector-icons';
 import { useSelector, useDispatch } from 'react-redux';
 import { goToList } from '../../Store/actions/restaurantAction';
 import * as Location from 'expo-location';
 import { GOOGLE_MAPS_API_KEY } from '../../Setup/constants';
 import axios from 'axios';
+import Delivery from '../../Assets/Images/Bike.png';
 import PolylineLib from '@mapbox/polyline';
 
 const { width, height } = Dimensions.get('window');
@@ -23,7 +24,6 @@ export default function TrackOrder() {
     const [routeCoordinates, setRouteCoordinates] = useState([]);
     const [orderDelay, setOrderDelay] = useState(false);
     const orderDetails = useSelector(state => state.restaurant.orderDetails);
-
     useEffect(() => {
         (async function fetchData() {
             try {
@@ -66,49 +66,68 @@ export default function TrackOrder() {
                     <View>
                         <Text style={styles.orderId}>ORDER #{orderDetails && orderDetails[0].orderId}</Text>
                         <Text style={styles.orderDetails}>{orderDetails && `8:21 PM | ${orderDetails[0].items.length} ${orderDetails[0].items.length > 1 ? `items` : `item`}, ₹${orderDetails[0].totalAmount}`}
-
                         </Text>
                     </View>
                     <Text style={styles.helpText}>HELP</Text>
                 </View>
             </View>
             {/* Conditionally render MapView only if initialRegion is available */}
-            {userLocation && (
-                <MapView
-                    style={styles.map}
-                    provider={PROVIDER_GOOGLE}
-                    initialRegion={userLocation}
-                    zoomEnabled={true}
-                    zoomTapEnabled={true}
-                    scrollEnabled={true}
-                    showsUserLocation
-                    showsMyLocationButton
-                >
-                    {/* Static Marker for restaurant */}
-                    <Marker coordinate={{ latitude: 10.4045, longitude: 76.3425 }}>
-                        <MaterialIcons name="restaurant" size={24} color="red" style={styles.restaurantICO} />
-                    </Marker>
-                    {/* User's location marker */}
-                    <Marker coordinate={{ latitude: userLocation.latitude, longitude: userLocation.longitude }}>
-                        <MaterialIcons name="home" size={24} color="black" style={styles.HomeICO} />
-                    </Marker>
-                    {/* Optional Polyline for route */}
-                    <Polyline
-                        coordinates={[
-                            { latitude: 10.4045, longitude: 76.3425 },
-                            { latitude: userLocation.latitude, longitude: userLocation.longitude },
-                        ]}
-                        strokeColor="blue"
-                        strokeWidth={3}
-                    />
-                    {/* Google Console Enabled Route */}
-                    {/* <Polyline
+            <ScrollView>
+                {userLocation && (
+                    <MapView
+                        style={styles.map}
+                        provider={PROVIDER_GOOGLE}
+                        initialRegion={userLocation}
+                        zoomEnabled={true}
+                        zoomTapEnabled={true}
+                        scrollEnabled={true}
+                        showsUserLocation
+                        showsMyLocationButton
+                    >
+                        {/* Static Marker for restaurant */}
+                        <Marker coordinate={{ latitude: 10.400873, longitude: 76.341851 }}>
+                            <MaterialIcons name="restaurant" size={24} color="red" style={styles.restaurantICO} />
+                        </Marker>
+                        {/* User's location marker */}
+                        <Marker coordinate={{ latitude: userLocation.latitude, longitude: userLocation.longitude }}>
+                            <MaterialIcons name="home" size={24} color="black" style={styles.HomeICO} />
+                        </Marker>
+                        {/* Delivery guy marker */}
+                        <Marker coordinate={{ latitude: 10.400324, longitude: 76.343354 }}>
+                            <View style={styles.BikeContainer}>
+                                <Image source={Delivery} style={styles.BikeICO} />
+                            </View>
+                        </Marker>
+                        {/* Optional Polyline for route */}
+                        <Polyline
+                            coordinates={[
+                                { latitude: 10.400873, longitude: 76.341851 },
+                                { latitude: userLocation.latitude, longitude: userLocation.longitude },
+                            ]}
+                            strokeColor="blue"
+                            strokeWidth={3}
+                        />
+                        {/* Google Console Enabled Route */}
+                        {/* <Polyline
                         coordinates={routeCoordinates}
                         strokeColor="#1E90FF" // Customize the color
                         strokeWidth={4}
                     /> */}
-                </MapView>
-            )}
+                    </MapView>
+                )}
+                <View style={styles.content3}>
+                    <Text style={styles.orderId}>Order Summary:</Text>
+                    {orderDetails && orderDetails[0]?.items.map((menuItem, index) => {
+                        return <View style={styles.flexContent}>
+                            <View style={styles.flexContent2}>
+                                <MaterialIcons name={menuItem.veg ? "spa" : "pets"} size={20} color={menuItem.veg ? 'green' : "#FF6969"} />
+                                <Text>{menuItem.name}</Text>
+                                <Text style={{ marginLeft: 10 }}>x {menuItem?.quantity}</Text>
+                            </View>
+                        </View>
+                    })}
+                </View>
+            </ScrollView>
             <View style={styles.statusContainer}>
                 <View style={styles.statusHeader}>
                     <View style={styles.statusIcon}>
@@ -155,7 +174,12 @@ const styles = StyleSheet.create({
         shadowRadius: 2,
         alignItems: 'center',
     },
-    orderBox: { flex: 1, flexDirection: 'row', justifyContent: 'space-between' },
+    orderBox: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center'
+    },
     orderId: {
         fontWeight: 'bold',
         fontSize: 16,
@@ -166,6 +190,7 @@ const styles = StyleSheet.create({
     helpText: {
         color: 'orange',
         fontWeight: 'bold',
+        alignItems: 'center',
     },
     statusContainer: {
         position: 'absolute',
@@ -224,5 +249,40 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         marginBottom: 4,
         borderColor: '#000'
-    }
+    },
+    BikeContainer: {
+        width: 50,
+        height: 50,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    BikeICO: {
+        width: '100%',
+        height: '100%',
+        resizeMode: 'contain',
+    },
+    flexContent: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        gap: 10,
+        marginTop: 4
+    },
+    flexContent2: {
+        flexDirection: 'row',
+    },
+    content3: {
+        margin: 0,
+        marginTop: 10,
+        padding: 20,
+        backgroundColor: 'white',
+        shadowColor: '#000',
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 5,
+        borderRadius: 8,
+    },
 });
