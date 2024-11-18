@@ -1,7 +1,9 @@
-import { FETCH_USER } from '../actions/userAction';
+import { FETCH_USER, LOGIN, LOGOUT } from '../actions/userAction';
 
 const initialState = {
     user: [],
+    isAuthenticated: false,
+    userRole: null,
 };
 
 export default function (state = initialState, action) {
@@ -11,6 +13,14 @@ export default function (state = initialState, action) {
                 ...state,
                 user: action.payload,
             };
+        case LOGIN:
+            return {
+                ...state,
+                isAuthenticated: true,
+                userRole: action.payload,
+            };
+        case LOGOUT:
+            return initialState;
         default:
             return state;
     }

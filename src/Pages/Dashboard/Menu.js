@@ -82,6 +82,7 @@ const styles = StyleSheet.create({
     },
     cardLeft: {
         flexDirection: 'column',
+        width: '70%'
     },
     bestseller: {
         color: '#FF6969',
@@ -92,6 +93,7 @@ const styles = StyleSheet.create({
         fontSize: 18,
         fontWeight: 'bold',
         marginVertical: 5,
+
     },
     price: {
         fontSize: 16,

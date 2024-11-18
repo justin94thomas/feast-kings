@@ -33,6 +33,9 @@
         "projectId": "c26e0c01-42d5-4e4e-b461-501172550a3e"
       }
     },
-    "owner": "justin94thomas"
+    "owner": "justin94thomas",
+    "plugins": [
+      "expo-font"
+    ]
   }
 }
